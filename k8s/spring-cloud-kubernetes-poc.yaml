@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-cloud-kubernetes-poc
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 28080
+    targetPort: 8080
+  selector:
+    app: spring-cloud-kubernetes-poc
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-cloud-kubernetes-poc
+  labels:
+    app: spring-cloud-kubernetes-poc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-cloud-kubernetes-poc
+  template:
+    metadata:
+      labels:
+        app: spring-cloud-kubernetes-poc
+    spec:
+      containers:
+      - name: spring-cloud-kubernetes-poc
+        image: belaboros/spring-cloud-kubernetes-poc
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "70Mi"
+            cpu: "400m"
+          limits:
+            memory: "70Mi"
+            cpu: "400m"
+#        env:
+#        - name: speed
+#          value: "4"
+

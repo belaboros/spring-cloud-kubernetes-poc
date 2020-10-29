@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-cloud-kubernetes-poc
+data:
+  application.properties: |-
+    message=Hello Kuberenetes (from K8S ConfigMap)
+
